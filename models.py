@@ -1,6 +1,22 @@
 from persistent import Persistent
 from persistent.list import PersistentList
 
+
+class Produto(Persistent):
+    def __init__(self, nome, validade, estoque):
+        self.nome = nome
+        self.validade = validade
+        self.estoque = estoque
+
+    def aumentar_Estoque(self, estoque):
+        self.estoque += estoque
+
+    def diminuir_Estoque(self, estoque):
+        self.estoque -= estoque
+
+    def checar(self):
+        if self.validade <= 8:
+            print(f'O produto')
 class Tarefa(Persistent):
     """Representa uma tarefa individual."""
 
