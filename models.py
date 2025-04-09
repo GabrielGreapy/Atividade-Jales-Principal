@@ -10,13 +10,45 @@ class Produto(Persistent):
 
     def aumentar_Estoque(self, estoque):
         self.estoque += estoque
+        self._p_changed = 1
 
     def diminuir_Estoque(self, estoque):
         self.estoque -= estoque
+        self._p_changed = 1
 
     def checar(self):
-        if self.validade <= 8:
-            print(f'O produto')
+        if self.validade < 8:
+            print(f'O produto está com uma semana ou menos de validade')
+        else: print(f'O produto está com mais de uma semana de validade')
+
+class Carrinhos_Loja(Persistent):
+    def __init__(self, carrinho):
+        self.carrinho = carrinho
+        self.itens_No_Carrinho = PersistentList()
+
+
+class Loja(Persistent):
+    def __init__(self):
+        self.Carrinhos = PersistentList()
+    
+    def adicionar_Item_Carrinho(self, novo_Item):
+        self.itens_No_Carrinho.append(novo_Item)
+        self._p_changed = 1 
+        print("Item adicionado ao carrinho")
+
+    
+class Livro_Biblioteca(Persistent):
+    def __init__(self, livro, status_Emprestado):
+        self.livro = livro
+        self.status_Emprestado = status_Emprestado
+
+    
+class Registro_Escola(Persistent):
+    def __init__(self, aluno, frequencia):
+        self.aluno = aluno
+        self.frequencia = frequencia
+        
+        
 class Tarefa(Persistent):
     """Representa uma tarefa individual."""
 
