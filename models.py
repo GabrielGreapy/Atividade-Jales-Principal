@@ -1,9 +1,26 @@
 from persistent import Persistent
 from persistent.list import PersistentList
+import datetime
 
 
+class Estoque(Persistent):
+    def __init__(self):
+        self.estoque = PersistentList()
+
+    def adicionar_Produto(self, nome, validade, estoque):
+        produto = Produto(nome, validade, estoque)
+        self.estoque.append(produto)
+        self._p_changed = 1
+    def remover_Produto(self, indice):
+        if 0 <= indice < len(self.produto):
+            del self.produto[indice]
+            self._p_changed = 1
+        else:
+            print("Índice invalido.")
+    
 class Produto(Persistent):
-    def __init__(self, nome, validade, estoque):
+    def __init__(self, nome, validade, estoque, data):
+        self.data = data
         self.nome = nome
         self.validade = validade
         self.estoque = estoque
@@ -17,9 +34,10 @@ class Produto(Persistent):
         self._p_changed = 1
 
     def checar(self):
-        if self.validade < 8:
-            print(f'O produto está com uma semana ou menos de validade')
-        else: print(f'O produto está com mais de uma semana de validade')
+        hoje = datetime.now()
+        data = datetime.datetime(self.data)
+        x = data - hoje
+        if x <=
 
 class Carrinhos_Loja(Persistent):
     def __init__(self, carrinho):
